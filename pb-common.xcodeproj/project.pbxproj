@@ -3,11 +3,67 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		397B3F612400957C005AD8A9 /* PBReceiver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397B3F602400957C005AD8A9 /* PBReceiver.hpp */; };
+		39F1E15023FE011F00FABA4C /* maths.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E14723FE011F00FABA4C /* maths.hpp */; };
+		39F1E15223FE011F00FABA4C /* Bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E14923FE011F00FABA4C /* Bounds.hpp */; };
+		39F1E15323FE011F00FABA4C /* Arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E14A23FE011F00FABA4C /* Arena.cpp */; };
+		39F1E15423FE011F00FABA4C /* Arena.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E14B23FE011F00FABA4C /* Arena.hpp */; };
+		39F1E15B23FE018700FABA4C /* DiskIO.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E15A23FE018700FABA4C /* DiskIO.hpp */; };
+		39F1E16123FF313800FABA4C /* body.proto in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E15D23FF313800FABA4C /* body.proto */; };
+		39F1E16223FF313800FABA4C /* layout.proto in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E15E23FF313800FABA4C /* layout.proto */; };
+		39F1E16323FF313800FABA4C /* talkers.proto in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E15F23FF313800FABA4C /* talkers.proto */; };
+		39F1E16423FF313800FABA4C /* maths.proto in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E16023FF313800FABA4C /* maths.proto */; };
+		39F1E16723FF31C400FABA4C /* common.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16623FF31C400FABA4C /* common.hpp */; };
+		39F1E16E23FF321600FABA4C /* CalibrationValues.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16923FF321600FABA4C /* CalibrationValues.hpp */; };
+		39F1E16F23FF321600FABA4C /* Body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16A23FF321600FABA4C /* Body.hpp */; };
+		39F1E17023FF321600FABA4C /* RawBody.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16B23FF321600FABA4C /* RawBody.hpp */; };
+		39F1E17123FF321600FABA4C /* Skeleton.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16C23FF321600FABA4C /* Skeleton.hpp */; };
+		39F1E17223FF321600FABA4C /* Joint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E16D23FF321600FABA4C /* Joint.hpp */; };
+		39F1E1CD23FF5A7A00FABA4C /* messages.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E1CC23FF5A7A00FABA4C /* messages.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		39F1E16523FF314900FABA4C /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.protobuf;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(INPUT_FILE_DIR)/$(INPUT_FILE_BASE).pb.cc",
+				"$(INPUT_FILE_DIR)/$(INPUT_FILE_BASE).pb.h",
+			);
+			runOncePerArchitecture = 0;
+			script = "# Type a script or drag a script file from your workspace to insert its path.\nprotoc -I\"$INPUT_FILE_DIR\" --cpp_out=\"$INPUT_FILE_DIR\" \"$INPUT_FILE_PATH\"\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
-		39F1E13023FE004400FABA4C /* libpb-common.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libpb-common.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		397B3F602400957C005AD8A9 /* PBReceiver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PBReceiver.hpp; sourceTree = "<group>"; };
+		3989270C24007DAA00099F3C /* libprotobuf.22.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libprotobuf.22.dylib; path = ../../../../../../usr/local/Cellar/protobuf/3.11.4/lib/libprotobuf.22.dylib; sourceTree = "<group>"; };
+		39F1E13023FE004400FABA4C /* libpb-common.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libpb-common.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39F1E14723FE011F00FABA4C /* maths.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maths.hpp; sourceTree = "<group>"; };
+		39F1E14923FE011F00FABA4C /* Bounds.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bounds.hpp; sourceTree = "<group>"; };
+		39F1E14A23FE011F00FABA4C /* Arena.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arena.cpp; sourceTree = "<group>"; };
+		39F1E14B23FE011F00FABA4C /* Arena.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Arena.hpp; sourceTree = "<group>"; };
+		39F1E15A23FE018700FABA4C /* DiskIO.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DiskIO.hpp; sourceTree = "<group>"; };
+		39F1E15D23FF313800FABA4C /* body.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = body.proto; sourceTree = "<group>"; };
+		39F1E15E23FF313800FABA4C /* layout.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = layout.proto; sourceTree = "<group>"; };
+		39F1E15F23FF313800FABA4C /* talkers.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = talkers.proto; sourceTree = "<group>"; };
+		39F1E16023FF313800FABA4C /* maths.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.protobuf; path = maths.proto; sourceTree = "<group>"; };
+		39F1E16623FF31C400FABA4C /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
+		39F1E16923FF321600FABA4C /* CalibrationValues.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CalibrationValues.hpp; sourceTree = "<group>"; };
+		39F1E16A23FF321600FABA4C /* Body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Body.hpp; sourceTree = "<group>"; };
+		39F1E16B23FF321600FABA4C /* RawBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RawBody.hpp; sourceTree = "<group>"; };
+		39F1E16C23FF321600FABA4C /* Skeleton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Skeleton.hpp; sourceTree = "<group>"; };
+		39F1E16D23FF321600FABA4C /* Joint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Joint.hpp; sourceTree = "<group>"; };
+		39F1E17823FF32D700FABA4C /* libcommon.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libcommon.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		39F1E1CC23FF5A7A00FABA4C /* messages.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = messages.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,16 +80,75 @@
 		39F1E12723FE004400FABA4C = {
 			isa = PBXGroup;
 			children = (
+				39F1E1C923FF519A00FABA4C /* pb-common */,
 				39F1E13123FE004400FABA4C /* Products */,
+				39F1E17323FF32CB00FABA4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		39F1E13123FE004400FABA4C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				39F1E13023FE004400FABA4C /* libpb-common.dylib */,
+				39F1E13023FE004400FABA4C /* libpb-common.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		39F1E14523FE011F00FABA4C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				397B3F602400957C005AD8A9 /* PBReceiver.hpp */,
+				39F1E15A23FE018700FABA4C /* DiskIO.hpp */,
+				39F1E14723FE011F00FABA4C /* maths.hpp */,
+				39F1E14923FE011F00FABA4C /* Bounds.hpp */,
+				39F1E14A23FE011F00FABA4C /* Arena.cpp */,
+				39F1E14B23FE011F00FABA4C /* Arena.hpp */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		39F1E15C23FF30E500FABA4C /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				39F1E15D23FF313800FABA4C /* body.proto */,
+				39F1E15E23FF313800FABA4C /* layout.proto */,
+				39F1E16023FF313800FABA4C /* maths.proto */,
+				39F1E15F23FF313800FABA4C /* talkers.proto */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		39F1E16823FF321600FABA4C /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				39F1E16923FF321600FABA4C /* CalibrationValues.hpp */,
+				39F1E16A23FF321600FABA4C /* Body.hpp */,
+				39F1E16B23FF321600FABA4C /* RawBody.hpp */,
+				39F1E16C23FF321600FABA4C /* Skeleton.hpp */,
+				39F1E16D23FF321600FABA4C /* Joint.hpp */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		39F1E17323FF32CB00FABA4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3989270C24007DAA00099F3C /* libprotobuf.22.dylib */,
+				39F1E17823FF32D700FABA4C /* libcommon.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		39F1E1C923FF519A00FABA4C /* pb-common */ = {
+			isa = PBXGroup;
+			children = (
+				39F1E1CC23FF5A7A00FABA4C /* messages.hpp */,
+				39F1E15C23FF30E500FABA4C /* Messages */,
+				39F1E14523FE011F00FABA4C /* Utils */,
+				39F1E16623FF31C400FABA4C /* common.hpp */,
+				39F1E16823FF321600FABA4C /* Structs */,
+			);
+			path = "pb-common";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -43,6 +158,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F1E15023FE011F00FABA4C /* maths.hpp in Headers */,
+				39F1E17223FF321600FABA4C /* Joint.hpp in Headers */,
+				39F1E17023FF321600FABA4C /* RawBody.hpp in Headers */,
+				397B3F612400957C005AD8A9 /* PBReceiver.hpp in Headers */,
+				39F1E16E23FF321600FABA4C /* CalibrationValues.hpp in Headers */,
+				39F1E15423FE011F00FABA4C /* Arena.hpp in Headers */,
+				39F1E1CD23FF5A7A00FABA4C /* messages.hpp in Headers */,
+				39F1E15223FE011F00FABA4C /* Bounds.hpp in Headers */,
+				39F1E15B23FE018700FABA4C /* DiskIO.hpp in Headers */,
+				39F1E16F23FF321600FABA4C /* Body.hpp in Headers */,
+				39F1E17123FF321600FABA4C /* Skeleton.hpp in Headers */,
+				39F1E16723FF31C400FABA4C /* common.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,14 +183,16 @@
 				39F1E12C23FE004400FABA4C /* Headers */,
 				39F1E12D23FE004400FABA4C /* Sources */,
 				39F1E12E23FE004400FABA4C /* Frameworks */,
+				39F1E13923FE007200FABA4C /* Add Symlink in /usr/local/include */,
 			);
 			buildRules = (
+				39F1E16523FF314900FABA4C /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
 			name = "pb-common";
 			productName = "pb-common";
-			productReference = 39F1E13023FE004400FABA4C /* libpb-common.dylib */;
+			productReference = 39F1E13023FE004400FABA4C /* libpb-common.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -98,11 +227,37 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		39F1E13923FE007200FABA4C /* Add Symlink in /usr/local/include */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Add Symlink in /usr/local/include";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"/usr/local/include/$PRODUCT_NAME\"\nif [ ! -h \"$FILE\" ]; then\n\tln -s \"$SRCROOT/$PRODUCT_NAME\" \"/usr/local/include/$PRODUCT_NAME\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		39F1E12D23FE004400FABA4C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F1E16123FF313800FABA4C /* body.proto in Sources */,
+				39F1E16323FF313800FABA4C /* talkers.proto in Sources */,
+				39F1E15323FE011F00FABA4C /* Arena.cpp in Sources */,
+				39F1E16223FF313800FABA4C /* layout.proto in Sources */,
+				39F1E16423FF313800FABA4C /* maths.proto in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,26 +376,50 @@
 		39F1E13523FE004400FABA4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_HEADERS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = KJ993GM677;
+				DSTROOT = /usr/local/lib;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
+				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					/usr/local/Cellar/protobuf/3.11.4/lib,
+				);
+				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/pb-common";
+				SKIP_INSTALL = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include/;
 			};
 			name = Debug;
 		};
 		39F1E13623FE004400FABA4C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_HEADERS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = KJ993GM677;
+				DSTROOT = /usr/local/lib;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
+				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					/usr/local/Cellar/protobuf/3.11.4/lib,
+				);
+				MACH_O_TYPE = staticlib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PUBLIC_HEADERS_FOLDER_PATH = "/usr/local/include/pb-common";
+				SKIP_INSTALL = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include/;
 			};
 			name = Release;
 		};
