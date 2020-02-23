@@ -9,6 +9,9 @@
 #ifndef RawBody_hpp
 #define RawBody_hpp
 
+#include <limits>
+#include <cmath>
+
 #include "../common.hpp"
 #include "../Messages/body.pb.h"
 
@@ -61,9 +64,10 @@ struct RawBody {
 
 	RawBody() = default;
 
-	RawBody(const messages::RawBody &body) {
-		uid = body.uid();
-		skeleton = Skeleton(body.skeleton());
+	RawBody(const messages::RawBody &body):
+		uid(body.uid()),
+		skeleton(body.skeleton()),
+		deviceUID(body.deviceuid()) {
 
 		switch(body.state()) {
 			case messages::RawBody_State_error:
@@ -87,7 +91,21 @@ struct RawBody {
 			default: break;
 		}
 
-		deviceUID = body.deviceuid();
+		// perform checks because we are built from a message and error may happen
+		performChecks();
+	}
+
+	/// Perform verification to ensure rawBody validity and update it accordingly
+	void performChecks() {
+		// A RawBody cannot have a center of mass of (0.0, 0.0, 0.0) as it would mean it is at the exact same location as the camera is.
+		// 0.000001 => precision
+		if(std::abs(skeleton.centerOfMass.x) < 0.000001 &&
+		   std::abs(skeleton.centerOfMass.y) < 0.000001 &&
+		   std::abs(skeleton.centerOfMass.z) < 0.000001) {
+			state = error;
+		}
+
+		// All is ok
 	}
 
 	// MARK: - Operators

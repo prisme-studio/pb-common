@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		394B47022401F85B00065A94 /* Joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394B47012401F85B00065A94 /* Joint.cpp */; };
+		394B47042401F97B00065A94 /* Skeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 394B47032401F97B00065A94 /* Skeleton.cpp */; };
 		397B3F612400957C005AD8A9 /* PBReceiver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 397B3F602400957C005AD8A9 /* PBReceiver.hpp */; };
+		397B3F7D24019D4C005AD8A9 /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 397B3F7C24019D4C005AD8A9 /* Body.cpp */; };
 		39F1E15023FE011F00FABA4C /* maths.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E14723FE011F00FABA4C /* maths.hpp */; };
 		39F1E15223FE011F00FABA4C /* Bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E14923FE011F00FABA4C /* Bounds.hpp */; };
 		39F1E15323FE011F00FABA4C /* Arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E14A23FE011F00FABA4C /* Arena.cpp */; };
@@ -44,7 +47,11 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		394B47012401F85B00065A94 /* Joint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Joint.cpp; sourceTree = "<group>"; };
+		394B47032401F97B00065A94 /* Skeleton.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Skeleton.cpp; sourceTree = "<group>"; };
 		397B3F602400957C005AD8A9 /* PBReceiver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PBReceiver.hpp; sourceTree = "<group>"; };
+		397B3F742401962A005AD8A9 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		397B3F7C24019D4C005AD8A9 /* Body.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Body.cpp; sourceTree = "<group>"; };
 		3989270C24007DAA00099F3C /* libprotobuf.22.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libprotobuf.22.dylib; path = ../../../../../../usr/local/Cellar/protobuf/3.11.4/lib/libprotobuf.22.dylib; sourceTree = "<group>"; };
 		39F1E13023FE004400FABA4C /* libpb-common.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libpb-common.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39F1E14723FE011F00FABA4C /* maths.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maths.hpp; sourceTree = "<group>"; };
@@ -80,6 +87,7 @@
 		39F1E12723FE004400FABA4C = {
 			isa = PBXGroup;
 			children = (
+				397B3F742401962A005AD8A9 /* .gitignore */,
 				39F1E1C923FF519A00FABA4C /* pb-common */,
 				39F1E13123FE004400FABA4C /* Products */,
 				39F1E17323FF32CB00FABA4C /* Frameworks */,
@@ -121,11 +129,14 @@
 		39F1E16823FF321600FABA4C /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				39F1E16923FF321600FABA4C /* CalibrationValues.hpp */,
+				397B3F7C24019D4C005AD8A9 /* Body.cpp */,
 				39F1E16A23FF321600FABA4C /* Body.hpp */,
-				39F1E16B23FF321600FABA4C /* RawBody.hpp */,
-				39F1E16C23FF321600FABA4C /* Skeleton.hpp */,
+				39F1E16923FF321600FABA4C /* CalibrationValues.hpp */,
+				394B47012401F85B00065A94 /* Joint.cpp */,
 				39F1E16D23FF321600FABA4C /* Joint.hpp */,
+				39F1E16B23FF321600FABA4C /* RawBody.hpp */,
+				394B47032401F97B00065A94 /* Skeleton.cpp */,
+				39F1E16C23FF321600FABA4C /* Skeleton.hpp */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -255,7 +266,10 @@
 			files = (
 				39F1E16123FF313800FABA4C /* body.proto in Sources */,
 				39F1E16323FF313800FABA4C /* talkers.proto in Sources */,
+				394B47042401F97B00065A94 /* Skeleton.cpp in Sources */,
 				39F1E15323FE011F00FABA4C /* Arena.cpp in Sources */,
+				397B3F7D24019D4C005AD8A9 /* Body.cpp in Sources */,
+				394B47022401F85B00065A94 /* Joint.cpp in Sources */,
 				39F1E16223FF313800FABA4C /* layout.proto in Sources */,
 				39F1E16423FF313800FABA4C /* maths.proto in Sources */,
 			);

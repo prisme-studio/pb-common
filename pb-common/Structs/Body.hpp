@@ -23,7 +23,7 @@
 
 namespace pb {
 
-// A body is a collection of one or more rawbodies that have been merge by the Tracking Engine using a layout. A Body has a current position as well as an history of positions
+// A body is a collection of one or more skeletons who's coordinates have been calculated by the Tracking Engine using a layout. A Body has a current position as well as an history of positions.
 struct Body {
 
 	// MARK: Properties
@@ -34,7 +34,7 @@ struct Body {
 	/// The current frame of the user
 	unsigned int frame = 0;
 
-	/// The skeletons for this user in the global coordinates space. The first one being the oldest one, and the last one the actual one
+	/// The skeletons for this user in the global coordinates space. The first one being the current one, and the last one the oldest one in memory
 	std::list<Skeleton *> skeletons;
 
 	/// UIDs of all the devices currently tracking this body
@@ -47,29 +47,22 @@ struct Body {
 	/// This is used by the TrackingEngine.
 	std::vector<Skeleton *> rawSkeletons;
 
+	/// How many cycles since the last time we received information on this body >?
+	unsigned int inactivityCount = 0;
+
 	/// Tell if the body is valid. An invalid body does not have new meaningful skeletons.
 	/// As of 2019-11-27, an invalid body will always be removed on the next frame.
 	bool isValid = true;
 
 	// MARK: - Constructors
 
-	// Default constructor
-	Body() = default;
+	/// Instanciate a Body using the informations provided by the given RawBody
+	/// @param rawBody A RawBody sent by a tracker
+	Body(RawBody * rawBody);
 
-	Body(RawBody * rawBody) {
-		uid = boost::uuids::to_string(boost::uuids::random_generator()());
-		rawBodiesUID[rawBody->deviceUID] = rawBody->uid;
-		rawSkeletons.push_back(new Skeleton(rawBody->skeleton));
-		devicesUID.insert(rawBody->deviceUID);
-	}
-
-	Body(const messages::PartialBody &body) {
-		uid = body.uid();
-		isValid = body.isvalid();
-		frame = body.frame();
-		devicesUID = {body.devicesuid().begin(), body.devicesuid().end()};
-		skeletons.push_back(new Skeleton(body.skeleton()));
-	}
+	/// Instanciate a Body using the informations provided by the given PartialBody
+	/// A PartialBody sent by the master
+	Body(const messages::PartialBody &body);
 
 	~Body() {
 		for(Skeleton * skeleton: skeletons) {
@@ -81,117 +74,28 @@ struct Body {
 
 	// MARK: - Accessors
 
-	inline bool hasSkeleton() { return skeletons.size() > 0; }
+	inline bool hasSkeleton() const { return skeletons.size() > 0; }
 
-	inline Skeleton * skeleton() { return skeletons.back(); }
+	/// Gives the current skeleton of this body, if any
+	inline Skeleton * skeleton() { return hasSkeleton() ? skeletons.front() : nullptr; }
 
 	// MARK: - Manipulations
 
-	/// How many cycles since the last time we received information on this body >?
-	unsigned int inactivityCount = 0;
-
-#ifdef PB_MASTER
+	Body & insertPartial(const messages::PartialBody &partialBody);
 
 	/// Calculate the weighted mean of all the raw skeletons matching the current body
 	/// @returns True if the body has changed or false otherwise
-	bool updatePosition() {
-		if(!isValid)
-			return true;
+	bool updatePosition();
 
-		// Is there any rawSkeleton to work with ?
-		if(rawSkeletons.size() == 0) {
-			++inactivityCount;
+private:
 
-			if(inactivityCount > 15) {
-				isValid = false;
-				return true;
-			}
+	Skeleton * mergeRawSkeletons();
 
-			return false;
-		}
+	Skeleton * predictSkeleton();
 
-		// Reset
-		inactivityCount = 0;
-		isValid = true;
+public:
 
-		Skeleton skeleton;
-
-		// Add all the rawSkeletons
-		for(long unsigned int i = 0; i < rawSkeletons.size(); ++i) {
-			// TODO: Make sure the skeletons are in the same direction (front back, check the hands)
-
-			skeleton += *rawSkeletons[i];
-		}
-
-		// Divide them (weighted mean)
-		Skeleton * newSkeleton = new Skeleton(skeleton / rawSkeletons.size());
-
-		// If we already have a skeleton from before, we can use it to fill missing joints, if any
-		if(hasSkeleton()) {
-
-			// Check for missing joints
-			for(int i = 0; i < newSkeleton->joints.size(); ++i) {
-				if(newSkeleton->joints[i].positionConfidence != 0)
-					continue; // Joint is ok
-
-				// Joint is missing, did we have it before ?
-				if(this->skeleton()->joints[i].positionConfidence == 0)
-					continue; // Previous skeleton didn't had it either
-
-				newSkeleton->joints[i] = this->skeleton()->joints[i];
-			}
-		}
-
-		skeletons.push_back(newSkeleton);
-
-		// Keep history size
-		if(skeletons.size() > TRACKING_ENGINE_BODY_HISTORY_SIZE) {
-			delete skeletons.front();
-			skeletons.front() = nullptr;
-			skeletons.erase(skeletons.begin());
-		}
-
-		// Increment the frame
-		++frame;
-
-		// Clear the raw skeletons
-		clearRawSkeletons();
-
-		return true;
-	}
-
-#endif /* PB_MASTER */
-
-	void clearRawSkeletons() {
-		// Clear the rawSkeletons
-		for (Skeleton * skeleton: rawSkeletons) {
-			delete skeleton;
-			skeleton = nullptr;
-		}
-
-		rawSkeletons.clear();
-	}
-
-	// MARK: - Operators
-
-	Body & insertPartial(const messages::PartialBody &partialBody)  {
-		frame = partialBody.frame();
-
-		skeletons.push_back(new Skeleton(partialBody.skeleton()));
-
-		if(skeletons.size() > 5) {
-			skeletons.pop_front();
-		}
-
-
-		// Update devices UID list
-		devicesUID.clear();
-		devicesUID.insert(partialBody.devicesuid().begin(), partialBody.devicesuid().end());
-
-		inactivityCount = 0;
-
-		return *this;
-	}
+	void clearRawSkeletons();
 };
 
 } /* ::pb */

@@ -45,7 +45,8 @@ constexpr unsigned short int advertiserRate = 1; // Advertise every X seconds
 // MARK: - Engines settings
 #define TRACKING_ENGINE_RUN_SPEED 15.0 // Times per seconds
 #define TRACKING_ENGINE_MERGE_DISTANCE 150.0 // mm
-#define TRACKING_ENGINE_BODY_HISTORY_SIZE 2
+#define TRACKING_ENGINE_BODY_HISTORY_SIZE 5
+#define TRACKING_ENGINE_INACTIVITY_THRESHOLD 15
 
 #define POSE_ENGINE_RUN_SPEED 30.0
 

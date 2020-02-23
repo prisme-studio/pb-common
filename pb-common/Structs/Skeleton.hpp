@@ -13,6 +13,7 @@
 #include <stdexcept>
 
 #include <common/log.hpp>
+#include <common/misc.hpp>
 
 #include "../Messages/body.pb.h"
 #include "../Utils/maths.hpp"
@@ -28,14 +29,14 @@ namespace pb {
 struct Skeleton  {
 	// MARK: - Properties
 
+	/// Precise time of when the skeleton was created
+	const long time = timing::millisSinceStart();
+
 	/// Stores all the joints in the skeleton
 	std::array<pb::Joint, 15> joints;
 
 	/// The center of mass of the skeleton
 	maths::vec3 centerOfMass;
-
-
-	// MARK: - Enum
 
 	// Defines all the joints stored in a Skeleton
 	enum JointID {
@@ -56,103 +57,62 @@ struct Skeleton  {
 		rightFoot = 14
 	};
 
-	// MARK: - Constructor
+	// MARK: - Constructors
 
 	/// Default constructor
 	Skeleton() = default;
 
 	/// Copy constructor
-	Skeleton(const Skeleton &skel) {
-		centerOfMass = skel.centerOfMass;
-
-		for(int i = 0; i < 15; ++i) {
-			joints[i] = skel.joints[i];
-		}
-	}
+	Skeleton(const Skeleton &);
 
 	/// Build a skeleton from a message
-	Skeleton(const messages::Skeleton &message) {
-		centerOfMass = maths::fromMessage(message.centerofmass());
+	Skeleton(const messages::Skeleton &);
 
-		if (message.joints_size() != 15) {
-			LOG_ERROR("Malformed Skeleton message");
-			throw std::runtime_error("Malformed Skeleton message");
-		}
-
-		for(int i = 0; i < 15; ++i) {
-			joints[i] = message.joints(i);
-		}
-	}
-
-
-	// MARK: - Operators
+	// MARK: - Joints access
 
 	/// Convenient access to the specified joint
 	pb::Joint & operator [](JointID &jointID) {
 		return joints[jointID];
 	}
 
-	/// Replace the value of the specified joint with he given one
+	/// Replace the value of the specified joint with the given one
 	void set(const JointID &jointID, const pb::Joint &joint) {
 		joints[jointID] = joint;
 	}
 
-	operator messages::Skeleton * () const {
-		messages::Skeleton * message = new messages::Skeleton();
+	// MARK: - Forecast
 
-		// Converts the joints
-		for(const pb::Joint &joint: joints) {
-			messages::Joint * jointMessage = message->mutable_joints()->Add();
-			jointMessage->CopyFrom(joint);
-		}
+	/// Calculate the next skeleton following the two given ones
+	/// @param s1 The first skeleton
+	/// @param s2 The second skeleton, should be older than the first one
+	static Skeleton * forecastNext(const Skeleton * s1, const Skeleton * s2);
 
-		// Fill in the message
-		message->set_allocated_centerofmass(maths::asMessage(centerOfMass));
+	/// Calculate the next skeleton following the three given ones
+	/// @param s1 The first skeleton
+	/// @param s2 The second skeleton, should be older than the first one
+	/// @param s3 The third skeleton, should be older than the second one
+	static Skeleton * forecastNext(const Skeleton * s1, const Skeleton * s2, const Skeleton * s3);
 
-		return message;
-	}
+	// MARK: - Operators
 
-	// MARK: Mathematics operator
-
-	Skeleton& operator += (const Skeleton &s2) {
-		// Sum all joints
-		for(long unsigned int i = 0; i < joints.size(); ++i) {
-			joints[i] += s2.joints[i];
-		}
-
-		// Sum the center of mass
-		centerOfMass += s2.centerOfMass;
+	Skeleton & operator = (const Skeleton &a) {
+		joints = a.joints;
+		centerOfMass = a.centerOfMass;
 
 		return *this;
 	}
 
-	Skeleton operator - (const Skeleton &s2) {
-		Skeleton s;
-		// Substract all joints
-		for(long unsigned int i = 0; i < joints.size(); ++i) {
-			s.joints[i] = joints[i] - s2.joints[i];
-		}
+	/// Casts the Skeleton to its representing message
+	operator messages::Skeleton * () const;
 
-		// Substract the center of mass
-		s.centerOfMass = centerOfMass - s2.centerOfMass;
+	// MARK: Mathematics operator
 
-		return s;
-	}
+	Skeleton& operator += (const Skeleton &s2);
 
-	Skeleton operator / (const SCALAR &div) {
-		Skeleton s;
-
-		// Divide each joints
-		for(long unsigned int i = 0; i < joints.size(); ++i) {
-			s.joints[i] = joints[i] / div;
-		}
-
-		// Divide the center of mass
-		s.centerOfMass = centerOfMass / div;
-
-		return s;
-	}
+	Skeleton operator / (const SCALAR &div);
 };
+
+Skeleton operator - (const Skeleton &a, const Skeleton &b);
 
 } /* ::pb */
 

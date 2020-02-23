@@ -1,0 +1,3 @@
+# Ignore Protobuf generated files
+pb-common/Messages/*.cc
+pb-common/Messages/*.h
