@@ -70,6 +70,10 @@ public:
 	/// Number of people moving in the arena
 	unsigned int movingBodiesCount() const;
 
+	/// Gives the user the closest to the given point. If no user is present,
+	/// the tuple's first element will be nullptr
+	std::tuple<Body *, double> closestTo(const double &x, const double &z);
+
 	// MARK: - Properties
 private:
 	/// Reference to all the bodies this Arena can access

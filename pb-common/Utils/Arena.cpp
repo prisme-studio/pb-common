@@ -229,4 +229,30 @@ unsigned int Arena::movingBodiesCount() const {
 	return movingBodies;
 }
 
+std::tuple<Body *, double> Arena::closestTo(const double &x, const double &z) {
+	std::vector<Body *> subset = getSubset();
+
+	if(subset.size() == 0) {
+		return {nullptr, 0};
+	}
+
+	double closestDistance = std::numeric_limits<double>::max();
+	Body * closestBody = nullptr;
+
+	for(Body * body: subset) {
+		if(!body->hasSkeleton())
+			continue;
+
+		const maths::vec3 &com = body->skeleton()->centerOfMass;
+		double distance = glm::distance(com, maths::vec3(x, com.y, z));
+
+		if(distance < closestDistance) {
+			closestDistance = distance;
+			closestBody = body;
+		}
+	}
+
+	return {closestBody, closestDistance};
+}
+
 } /* ::pb */

@@ -77,7 +77,7 @@ struct Body {
 	inline bool hasSkeleton() const { return skeletons.size() > 0; }
 
 	/// Gives the current skeleton of this body, if any
-	inline Skeleton * skeleton() { return hasSkeleton() ? skeletons.front() : nullptr; }
+	inline Skeleton * skeleton() const { return hasSkeleton() ? skeletons.front() : nullptr; }
 
 	// MARK: - Manipulations
 
