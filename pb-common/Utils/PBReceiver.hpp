@@ -63,10 +63,17 @@ public:
 
 	// MARK: - Lifecycle
 
-	inline void open() {
-		_browser.startBrowsing(discoveryPortReceiver);
-
+	inline void open(const std::string &masterIP = "") {
 		_internalThread = new std::thread(&PBReceiver::parseBodies, this);
+
+		if(masterIP.size() == 0) {
+			// Browse for a pb-master
+			_browser.startBrowsing(discoveryPortReceiver);
+			return;
+		}
+
+		// Connect to the specified master
+		_socket.connectTo(masterIP, serverPortReceiver);
 	}
 
 	void close() {
