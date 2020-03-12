@@ -59,6 +59,14 @@ public:
 	/// @returns True if the bodyu fit, false otherwise
 	bool fitBody(const Body * body) const;
 
+	inline void lock() const {
+		_mutex->lock();
+	}
+
+	inline void unlock() const {
+		_mutex->unlock();
+	}
+
 	// MARK: - Intels
 
 	/// The average move speed of all the bodies in the arena in mm/s
