@@ -99,14 +99,11 @@ Joint operator - (const Joint &a, const Joint &b) {
 Joint operator / (const Joint &a, const SCALAR &div) {
 	Joint j;
 
-	j.orientationConfidence = round((a.orientationConfidence / div) * 10.0) / 10.0;
-	j.positionConfidence = round((a.positionConfidence / div) * 10.0) / 10.0;
-
 	if(j.orientationConfidence == 0) {
 		// prevent division by 0
 		j.orientation = maths::vec3(0, 0, 0);
 	} else {
-		j.orientation = a.orientation / j.orientationConfidence;
+		j.orientation = a.orientation / a.orientationConfidence;
 	}
 
 	if(j.positionConfidence == 0) {
@@ -114,9 +111,12 @@ Joint operator / (const Joint &a, const SCALAR &div) {
 		j.position = maths::vec3(0, 0, 0);
 		j.position2D = maths::vec2(0, 0);
 	} else {
-		j.position = a.position / j.positionConfidence;
-		j.position2D = a.position2D / j.positionConfidence;
+		j.position = a.position / a.positionConfidence;
+		j.position2D = a.position2D / a.positionConfidence;
 	}
+
+	j.orientationConfidence = round((a.orientationConfidence / div) * 10.0) / 10.0;
+	j.positionConfidence = round((a.positionConfidence / div) * 10.0) / 10.0;
 
 	return j;
 }

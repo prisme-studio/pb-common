@@ -31,6 +31,7 @@ constexpr NetworkPort discoveryPortTrackerJSON = 42004;
 constexpr NetworkPort serverPortTracker = 42010;
 constexpr NetworkPort serverPortReceiver = 42020;
 constexpr NetworkPort serverPortTerminal = 42030;
+constexpr NetworkPort serverPortTrackerJSON = 42040;
 
 
 // MARK: PB-related-but-not-used-directly ports

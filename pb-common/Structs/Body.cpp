@@ -30,6 +30,9 @@ Body::Body(const messages::PartialBody &body):
 // MARK: - Accessors
 
 Body & Body::insertPartial(const messages::PartialBody &partialBody)  {
+
+	// Verify
+
 	frame = partialBody.frame();
 
 	skeletons.push_back(new Skeleton(partialBody.skeleton()));
