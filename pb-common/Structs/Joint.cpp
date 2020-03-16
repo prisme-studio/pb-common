@@ -99,14 +99,14 @@ Joint operator - (const Joint &a, const Joint &b) {
 Joint operator / (const Joint &a, const SCALAR &div) {
 	Joint j;
 
-	if(j.orientationConfidence == 0) {
+	if(a.orientationConfidence == 0) {
 		// prevent division by 0
 		j.orientation = maths::vec3(0, 0, 0);
 	} else {
 		j.orientation = a.orientation / a.orientationConfidence;
 	}
 
-	if(j.positionConfidence == 0) {
+	if(a.positionConfidence == 0) {
 		// prevent division by 0
 		j.position = maths::vec3(0, 0, 0);
 		j.position2D = maths::vec2(0, 0);

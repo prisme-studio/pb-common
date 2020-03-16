@@ -25,34 +25,25 @@ size_t Arena::count() const {
 std::vector<Body *> Arena::getSubset() const {
 	std::vector<Body *> bodies;
 
-	_mutex->lock();
-
 	for(std::pair<bodyUID, Body *> pair: *_bodies) {
 		if(fitBody(pair.second))
 			bodies.push_back(pair.second);
 	}
 
-	_mutex->unlock();
-
 	return bodies;
 }
 
 Body * Arena::getBody(const bodyUID &uid) const {
-	_mutex->lock();
-
 	if(_bodies->find(uid) == _bodies->end()) {
-		_mutex->unlock();
 		return nullptr;
 	}
 
 	Body * body = _bodies->at(uid);
 
 	if(fitBody(body)) {
-		_mutex->unlock();
 		return body;
 	}
 
-	_mutex->unlock();
 	return nullptr;
 }
 

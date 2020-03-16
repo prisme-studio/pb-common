@@ -102,8 +102,8 @@ public:
 		}
 	}
 
-	inline virtual void socketDidReceive(BaseSocket *, protobuf::Message * aMessage) override {
-		network::messages::Datagram * datagram = dynamic_cast<network::messages::Datagram *>(aMessage);
+	inline virtual void socketDidReceive(BaseSocket *, const protobuf::Message * aMessage) override {
+		const network::messages::Datagram * datagram = dynamic_cast<const network::messages::Datagram *>(aMessage);
 
 		if(datagram->type() != DatagramType::partialBody) {
 			// Discard
@@ -114,9 +114,9 @@ public:
 		// Unpack the datagram
 		messages::PartialBody partialBody = messages::PartialBody();
 		datagram->data().UnpackTo(&partialBody);
-
 		const pb::bodyUID bodyUID = partialBody.uid();
 
+		delete datagram;
 		_arenaMutex.lock();
 
 		// Do we have already a body for the current UID ?
@@ -126,8 +126,6 @@ public:
 			if(!partialBody.isvalid()) {
 				// Erase body
 				_bodies.erase(bodyUID);
-				datagram->Clear();
-				delete datagram;
 
 				_arenaMutex.unlock();
 
@@ -141,9 +139,6 @@ public:
 			// Body is valid, merge the partial body in the body
 			_bodies[bodyUID]->insertPartial(partialBody);
 
-			datagram->Clear();
-			delete datagram;
-
 			_arenaMutex.unlock();
 
 			for (PBReceiverObserver * observer: _observers) {
@@ -156,7 +151,6 @@ public:
 		// This looks like a new body, is it valid ?
 		if(!partialBody.isvalid()) {
 			// No, ignore
-			datagram->Clear();
 			delete datagram;
 
 			_arenaMutex.unlock();
